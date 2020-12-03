@@ -1,0 +1,19 @@
+$path: '~@/assets/fonts/';
+
+@font-face {
+  font-weight: 400;
+  font-family: Rubik;
+  font-style: normal;
+  src: local('Rubik Regular'), local('Rubik-Regular'),
+    url('#{$path}Rubik-Regular.woff') format('woff'),
+    url('#{$path}Rubik-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: Arimo;
+  font-style: normal;
+  src: local('Arimo Regular'), local('Arimo-Regular'),
+    url('#{$path}Arimo-Regular.woff') format('woff'),
+    url('#{$path}Arimo-Regular.woff2') format('woff2');
+}

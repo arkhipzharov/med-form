@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  // break word if it's wider than container
+  word-break: break-word;
+}
+
+::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+svg {
+  fill: currentColor;
+}
+
+button {
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  background-color: inherit;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+p {
+  margin: 0;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+  background-color: inherit;
+  border: 0;
+  outline: none;
+}
+
+// Removes arrows from input[type='number']
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+// Removes arrows too
+input[type='number'] {
+  appearance: textfield;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+  list-style-type: none;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+// https://proficientdesigners.in/how-to-remove-the-default-arrow-icon-from-a-dropdown-list-select-element/
+// Removes default arrow
+select {
+  overflow-y: auto;
+  text-indent: 1px;
+  text-overflow: '';
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+textarea {
+  padding: 0;
+  color: inherit;
+  background-color: inherit;
+  border: 0;
+  outline: none;
+  resize: none;
+}

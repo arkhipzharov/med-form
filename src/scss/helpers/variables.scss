@@ -1,0 +1,50 @@
+// Color pallette
+
+$white: #ffffff;
+$black: #000000;
+$grey: #a8a8a8;
+$red: #f57f6c;
+
+/*
+  End-use variables containing partially or fully colors taken from variables
+  in the palette. This approach allows you to not change the name of the
+  variable in the code itself if you need to change the color when choosing it
+*/
+
+// Text
+
+$text-white: $white;
+$text-black: $black;
+$text-grey: $grey;
+$text-red: $red;
+
+// Block backgrounds
+
+$bg-white: $white;
+$bg-black: $black;
+$bg-red: $red;
+
+// Borders
+
+$border-white: $white;
+$border-black: $black;
+$border-grey: $grey;
+$border-red: $red;
+
+// Shadows
+
+$shadow-white: $white;
+$shadow-black: $black;
+
+// Media queries
+
+// taken from tailwindcss - https://tailwindcss.com/docs/breakpoints
+$break-sm: 640px;
+$break-md: 768px;
+$break-lg: 1024px;
+$break-xl: 1280px;
+
+// Fonts
+
+$font-fallback: Arimo, Arial, sans-serif;
+$font-family: Rubik, $font-fallback;

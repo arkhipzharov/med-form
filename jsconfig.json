@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    // vscode path completion fix for path aliases
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}

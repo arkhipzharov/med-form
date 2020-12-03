@@ -1,0 +1,22 @@
+// taken from tailwindcss bootstrap-like .container helper classs styles
+// https://tailwindcss.com/docs/container#app
+
+@mixin page-width-media-center() {
+  margin: 0 auto;
+
+  @media (min-width: $break-sm) {
+    max-width: 640px;
+  }
+
+  @media (min-width: $break-md) {
+    max-width: 768px;
+  }
+
+  @media (min-width: $break-lg) {
+    max-width: 1024px;
+  }
+
+  @media (min-width: $break-xl) {
+    max-width: 1280px;
+  }
+}

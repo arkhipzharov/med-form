@@ -1,0 +1,11 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+# insert newline at the end of the file
+insert_final_newline = true
+# const data = { id: 54 }'.....' <-- trim space from here
+trim_trailing_whitespace = true
+trim_trailing_white_space_on_save = true

@@ -1,0 +1,1 @@
+import './inject-svg-sprite';
