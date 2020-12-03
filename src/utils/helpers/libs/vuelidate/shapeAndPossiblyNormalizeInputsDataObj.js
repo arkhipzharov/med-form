@@ -54,8 +54,6 @@ function normalizeVueInputsDataObj(finalObj) {
 export function nestVuelidateObjValues(obj) {
   Object.keys(obj).forEach((key) => {
     const value = obj[key];
-    // const valueKeys = Object.keys(value);
-    // if (typeof value[valueKeys[0]] !== 'function') return;
     obj[key] = {
       value,
     };

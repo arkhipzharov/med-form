@@ -16,18 +16,6 @@ module.exports = {
     'plugin:vue/recommended',
     'plugin:prettier/recommended',
   ],
-  overrides: [
-    {
-      files: ['*.vue'],
-      rules: {
-        /*
-          Said that expected indentation of 0 spaces but found 2 inside script
-          tag
-        */
-        'indent': 'off',
-      },
-    },
-  ],
   rules: {
     'no-plusplus': 'off',
     /*
@@ -142,22 +130,6 @@ module.exports = {
     // `'normalizeVueInputsDataObj' was used before it was defined`
     // we prefer to see business logic first before helpers
     'no-use-before-define': 'off',
-    'indent': [
-      'error',
-      2,
-      {
-        /*
-          ${
-            data.class === 'show-catalog'
-              ? '@click='showCatalog''
-              : ''
-          }
-
-          Said that the indents in this case are incorrect
-        */
-        ignoredNodes: ['TemplateLiteral'],
-      },
-    ],
     /*
       "Unable to resolve path to module '@/components/TheComponent'"
     */
@@ -176,6 +148,8 @@ module.exports = {
     // using only named import for vscode import autocomplete
     // https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/
     'import/prefer-default-export': 'off',
+    // was conflicting with prettier in template and object literals
+    'indent': 'off',
     /*
       <component
         :is='RptCartItem'

@@ -35,7 +35,6 @@
       v-if="type === 'text' || type === 'number'"
       :inputData="inputData"
       :validateObj="validateObj"
-      :vuelidateObj="vuelidateObj"
       :type="type"
       :nestedInpuDataKey="nestedInpuDataKey"
     />

@@ -1,7 +1,7 @@
 # Med Form
 
-Medical field creae\te client form test task. Live preview is available
-[here](http://lime-test.h1n.ru/med-form)
+Medical field create client form with dynamic and submit validation.
+Live preview is available [here](http://lime-test.h1n.ru/med-form)
 
 ## 📥 Setup
 

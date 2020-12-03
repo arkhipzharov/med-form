@@ -15,9 +15,7 @@ export const validation = {
       let validateObj = ('formData' in vuelidateObj
         ? vuelidateObj.formData
         : vuelidateObj)[dataKey];
-      // if (this.type !== 'number') {
       validateObj = validateObj.value;
-      // }
       return validateObj;
     },
   },

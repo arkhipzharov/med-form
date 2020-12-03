@@ -2,7 +2,7 @@
 
 export const errorMessages = {
   required: () => 'Обязательное поле',
-  numeric: ({ $params }) => 'Только цифры',
+  numeric: () => 'Только цифры',
   between: ({ $params }) => `
     от ${$params.between.min} до
     ${$params.between.max}
@@ -19,10 +19,10 @@ export const errorMessages = {
     Не должно быть длиннее ${
       $params.maxLength.max
     } ${adoptWordEndingsToNumber($params.maxLength.max, [
-      'знака',
-      'знаков',
-      'знаков',
-    ])}
+    'знака',
+    'знаков',
+    'знаков',
+  ])}
   `,
   postalCode: () => 'Неправильно введён почтовый индекс',
   house: () => 'Неправильно введён номер дома',

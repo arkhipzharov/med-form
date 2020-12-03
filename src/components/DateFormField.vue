@@ -28,7 +28,7 @@
 <!-- eslint-enable -->
 
 <script>
-  import { required, between, numeric } from 'vuelidate/lib/validators';
+  import { required, between } from 'vuelidate/lib/validators';
   import { capitalizeFirstLetter } from '@/utils/helpers';
   import FormFieldset from './FormFieldset';
   import ValidationWrapper from './ValidationWrapper';
@@ -53,17 +53,14 @@
 
   export const dateFormFieldValidations = {
     day: {
-      numeric,
       required,
       between: between(1, 31),
     },
     month: {
-      numeric,
       required,
       between: between(1, 12),
     },
     year: {
-      numeric,
       required,
       between: between(currentYear - 200, currentYear),
     },

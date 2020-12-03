@@ -9,9 +9,8 @@
         legend="Общее"
         class="form__section"
       >
-        <!-- , 'name', 'patronymic' -->
         <ValidationWrapper
-          v-for="(key, i) in ['surname']"
+          v-for="(key, i) in ['surname', 'name', 'patronymic']"
           :key="i"
           class="form__field"
           :vuelidateObj="$v"
@@ -23,32 +22,13 @@
           />
         </ValidationWrapper>
         <DateFormField
+          class="form__field"
           :legend="'Дата рождения'"
           :vuelidateObj="$v"
           :rootFormData="formData"
           :flattenedDataKeysBase="'birthDateParts'"
         />
-        <!-- <FormFieldset
-          class="form__field"
-          :legend="'Дата рождения'"
-          legendSize="sm"
-          inline
-        >
-          <ValidationWrapper
-            v-for="(key, i) in ['birthDatePartsDay', 'birthDatePartsMonth', 'birthDatePartsYear']"
-            :key="i"
-            :vuelidateObj="$v"
-            :inputData="formData[key]"
-            :type="'number'"
-          >
-            <FormGroup
-              :vuelidateObj="$v"
-              :inputData="formData[key]"
-              :type="'number'"
-            />
-          </ValidationWrapper>
-        </FormFieldset> -->
-        <!-- <ValidationWrapper
+        <ValidationWrapper
           class="form__field"
           :inputData="formData.phoneNumber"
           :vuelidateObj="$v"
@@ -162,12 +142,13 @@
             :inputData="formData[keyAndType[0]]"
             :type="keyAndType[1]"
           />
-        </ValidationWrapper> -->
-        <!-- <DateFormField
-          :vuelidateIter="$v.formData.dateOfIssueParts.$each.$iter"
+        </ValidationWrapper>
+        <DateFormField
           :legend="'Дата выдачи'"
-          :dataDateParts="formData.dateOfIssueParts"
-        /> -->
+          :vuelidateObj="$v"
+          :rootFormData="formData"
+          :flattenedDataKeysBase="'dateOfIssueParts'"
+        />
       </FormFieldset>
     </div>
     <VButton
@@ -190,7 +171,6 @@
     numeric,
     maxLength,
     helpers,
-    between,
   } from 'vuelidate/lib/validators';
   import {
     nameOfSomethingRu,
@@ -210,14 +190,17 @@
     dateFormFieldValidations,
   } from './DateFormField';
 
-  const currentYear = new Date().getFullYear();
-
   export default {
+    components: {
+      FormFieldset,
+      FormGroup,
+      ValidationWrapper,
+      DateFormField,
+    },
     mixins: [
       reset(() => ({
         submitStatus: '',
         submitStatusMessages: {
-          NOT_ANY_DIRTY_ERROR: 'Пожалуйста, заполните хотя бы одно поле формы',
           ANY_ERROR: 'Пожалуйста, заполните форму правильно',
           ALL_REQUIRED_ERROR: `
             Пожалуйста, заполните все обязательные поля формы, они отмечены
@@ -229,7 +212,7 @@
         formData: shapeAndPossiblyNormalizeInputsDataObj([], {
           ...flattenCombinedInputsDataForEachDataKey([
             {
-              keys: ['birthDateParts' /*  'dateOfIssueParts' */],
+              keys: ['birthDateParts', 'dateOfIssueParts'],
               value: dateFormFieldData,
             },
           ]),
@@ -237,130 +220,124 @@
             label: 'Фамилия',
             placeholder: 'Иванов',
           },
-          // birthDatePartsDay: {
-          //   label: 'День',
-          //   placeholder: '20',
-          // },
-          // birthDatePartsMonth: {
-          //   label: 'Месяц',
-          //   placeholder: '12',
-          // },
-          // birthDatePartsYear: {
-          //   label: 'Год',
-          //   placeholder: '2000',
-          // },
-          // name: {
-          //   label: 'Имя',
-          //   placeholder: 'Иван',
-          // },
-          // patronymic: {
-          //   label: 'Отчество',
-          //   placeholder: 'Иванович',
-          // },
-          // phoneNumber: {
-          //   label: 'Телефон',
-          //   placeholder: '79998887766',
-          // },
-          // gender: {},
-          // genders: [
-          //   {
-          //     id: 'man',
-          //     labelAndValue: 'Мужской',
-          //   },
-          //   {
-          //     id: 'woman',
-          //     labelAndValue: 'Женский',
-          //   },
-          // ],
-          // attendingPhysician: {
-          //   label: 'Лечащий врач',
-          // },
-          // attendingPhysicians: ['Иванов', 'Захаров', 'Чернышева'],
-          // clientGroupsData: {
-          //   value: [],
-          //   label: 'Группа клиентов',
-          // },
-          // clientGroupsOptions: [
-          //   {
-          //     value: 'vip',
-          //     text: 'VIP',
-          //   },
-          //   {
-          //     value: 'problematic',
-          //     text: 'Проблемные',
-          //   },
-          //   {
-          //     value: 'chi',
-          //     text: 'ОМС',
-          //   },
-          // ],
-          // doNotSendSMS: {
-          //   value: false,
-          //   label: 'Не отправлять СМС',
-          // },
-          // postalCode: {
-          //   label: 'Индекс',
-          //   placeholder: '344022',
-          // },
-          // country: {
-          //   label: 'Страна',
-          //   placeholder: 'Россия',
-          // },
-          // city: {
-          //   label: 'Город',
-          //   placeholder: 'Москва',
-          // },
-          // region: {
-          //   label: 'Область',
-          //   placeholder: 'Московская',
-          // },
-          // street: {
-          //   label: 'Улица/Бульвар/Проспект/Шоссе или подобное',
-          //   placeholder: 'Ленина',
-          // },
-          // house: {
-          //   label: 'Дом',
-          //   placeholder: '5',
-          // },
-          // documentType: {
-          //   label: 'Тип документа',
-          // },
-          // documentTypes: [
-          //   {
-          //     value: 'passport',
-          //     text: 'Паспорт',
-          //   },
-          //   {
-          //     value: 'birthCertificate',
-          //     text: 'Свидетельство о рождении',
-          //   },
-          //   {
-          //     value: 'driversLicense',
-          //     text: 'Вод. удостоверение',
-          //   },
-          // ],
-          // passportSeries: {
-          //   label: 'Серия',
-          //   placeholder: '99 99',
-          // },
-          // passportNumber: {
-          //   label: 'Номер',
-          //   placeholder: '999999',
-          // },
-          // passportIssuedBy: {
-          //   label: 'Кем выдан',
-          //   placeholder:
-          //     'Отделом УФМС России по Ростовской обл. в Октябрьском р-не города Ростова-на-Дону',
-          // },
+          birthDatePartsDay: {
+            label: 'День',
+            placeholder: '20',
+          },
+          birthDatePartsMonth: {
+            label: 'Месяц',
+            placeholder: '12',
+          },
+          birthDatePartsYear: {
+            label: 'Год',
+            placeholder: '2000',
+          },
+          name: {
+            label: 'Имя',
+            placeholder: 'Иван',
+          },
+          patronymic: {
+            label: 'Отчество',
+            placeholder: 'Иванович',
+          },
+          phoneNumber: {
+            label: 'Телефон',
+            placeholder: '79998887766',
+          },
+          gender: {},
+          genders: [
+            {
+              id: 'man',
+              labelAndValue: 'Мужской',
+            },
+            {
+              id: 'woman',
+              labelAndValue: 'Женский',
+            },
+          ],
+          attendingPhysician: {
+            label: 'Лечащий врач',
+          },
+          attendingPhysicians: ['Иванов', 'Захаров', 'Чернышева'],
+          clientGroupsData: {
+            value: [],
+            label: 'Группа клиентов',
+          },
+          clientGroupsOptions: [
+            {
+              value: 'vip',
+              text: 'VIP',
+            },
+            {
+              value: 'problematic',
+              text: 'Проблемные',
+            },
+            {
+              value: 'chi',
+              text: 'ОМС',
+            },
+          ],
+          doNotSendSMS: {
+            value: false,
+            label: 'Не отправлять СМС',
+          },
+          postalCode: {
+            label: 'Индекс',
+            placeholder: '344022',
+          },
+          country: {
+            label: 'Страна',
+            placeholder: 'Россия',
+          },
+          city: {
+            label: 'Город',
+            placeholder: 'Москва',
+          },
+          region: {
+            label: 'Область',
+            placeholder: 'Московская',
+          },
+          street: {
+            label: 'Улица/Бульвар/Проспект/Шоссе или подобное',
+            placeholder: 'Ленина',
+          },
+          house: {
+            label: 'Дом',
+            placeholder: '5',
+          },
+          documentType: {
+            label: 'Тип документа',
+          },
+          documentTypes: [
+            {
+              value: 'passport',
+              text: 'Паспорт',
+            },
+            {
+              value: 'birthCertificate',
+              text: 'Свидетельство о рождении',
+            },
+            {
+              value: 'driversLicense',
+              text: 'Вод. удостоверение',
+            },
+          ],
+          passportSeries: {
+            label: 'Серия',
+            placeholder: '99 99',
+          },
+          passportNumber: {
+            label: 'Номер',
+            placeholder: '999999',
+          },
+          passportIssuedBy: {
+            label: 'Кем выдан',
+            placeholder:
+              'Отделом УФМС России по Ростовской обл. в Октябрьском р-не города Ростова-на-Дону',
+          },
         }),
       })),
     ],
-    components: {
-      FormFieldset,
-      FormGroup,
-      ValidationWrapper,
-      DateFormField,
-    },
     mounted() {
       this.$evBus.$on('changed-value-or-values', ({ dataKey, newValue }) => {
         this.formData[dataKey] = {
@@ -373,99 +350,93 @@
       formData: shapeAndPossiblyNormalizeInputsDataObj(
         [
           {
-            keys: ['surname' /* , 'patronymic' */ /* .  'city' */],
+            keys: ['surname', 'patronymic', 'city'],
+            value: {
+              required,
+              nameOfSomethingRu,
+              maxLength: maxLength(2000),
+            },
+          },
+          {
+            keys: ['name', 'country', 'region', 'street'],
             value: {
               nameOfSomethingRu,
               maxLength: maxLength(2000),
             },
           },
-          // {
-          //   keys: ['birthDatePartsDay', 'birthDatePartsMonth', 'birthDatePartsYear'],
-          //   value: dateFormFieldValidations,
-          // },
-          // {
-          //   keys: [
-          //     /* 'name' */
-          //     /* , 'country', 'region', 'street' */
-          //   ],
-          //   value: {
-          //     nameOfSomethingRu,
-          //     maxLength: maxLength(2000),
-          //   },
-          // },
-          // {
-          //   keys: ['gender', 'clientGroupsData', 'documentType'],
-          //   value: {
-          //     required,
-          //   },
-          // },
+          {
+            keys: ['clientGroupsData', 'documentType'],
+            value: {
+              required,
+            },
+          },
         ],
         {
           ...flattenCombinedInputsDataForEachDataKey([
             {
-              keys: ['birthDateParts' /*  'dateOfIssueParts' */],
+              keys: ['birthDateParts', 'dateOfIssueParts'],
               value: dateFormFieldValidations,
             },
           ]),
-          // phoneNumber: {
-          //   required,
-          //   numeric,
-          //   length: length(11),
-          //   startsWith: ((char) => {
-          //     return helpers.withParams(
-          //       { type: 'startsWith', value: char },
-          //       (value) => {
-          //         return value.startsWith(char);
-          //       },
-          //     );
-          //   })('7'),
-          // },
-          // postalCode: {
-          //   postalCode: helpers.regex(
-          //     'postalCode',
-          //     // https://stackoverflow.com/a/19844362
-          //     // removed (?i) because `Invalid regular expression:
-          //     // /(?i)^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/: Invalid group`
-          //     // https://stackoverflow.com/a/3561287
-          //     /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/,
-          //   ),
-          //   maxLength: maxLength(2000),
-          // },
-          // house: {
-          //   house: helpers.regex(
-          //     'house',
-          //     // https://qna.habr.com/q/451633
-          //     /^[1-9][0-9]*([a-z]|[а-яё]|(\/[1-9][0-9]*))?$/i,
-          //   ),
-          //   maxLength: maxLength(2000),
-          // },
-          // passportSeries: {
-          //   passportSeries: helpers.regex(
-          //     'passportSeries',
-          //     // https://www.elma-bpm.ru/KB/article-6127.html
-          //     /^[0-9]{2}(\s{1})?[0-9]{2}$/,
-          //   ),
-          // },
-          // passportNumber: {
-          //   numeric,
-          //   length: length(6),
-          // },
-          // passportIssuedBy: {
-          //   alphaRu: (value) => {
-          //     const occurRegexesData = {
-          //       anyLetter: /\p{L}/gu,
-          //       letterRu: /[А-Яа-яёЁ]/g,
-          //     };
-          //     const occurNumbersData = Object.fromEntries(
-          //       Object.entries(occurRegexesData).map(([key, regex]) => {
-          //         return [`${key}Num`, (value.match(regex) || []).length];
-          //       }),
-          //     );
-          //     const { anyLetterNum, letterRuNum } = occurNumbersData;
-          //     return anyLetterNum === letterRuNum;
-          //   },
-          //   maxLength: maxLength(2000),
-          // },
+          phoneNumber: {
+            required,
+            numeric,
+            length: length(11),
+            startsWith: ((char) => {
+              return helpers.withParams(
+                { type: 'startsWith', value: char },
+                (value) => {
+                  return value.startsWith(char);
+                },
+              );
+            })('7'),
+          },
+          postalCode: {
+            postalCode: helpers.regex(
+              'postalCode',
+              // https://stackoverflow.com/a/19844362
+              // removed (?i) because `Invalid regular expression:
+              // /(?i)^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/: Invalid group`
+              // https://stackoverflow.com/a/3561287
+              /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/,
+            ),
+            maxLength: maxLength(2000),
+          },
+          house: {
+            house: helpers.regex(
+              'house',
+              // https://qna.habr.com/q/451633
+              /^[1-9][0-9]*([a-z]|[а-яё]|(\/[1-9][0-9]*))?$/i,
+            ),
+            maxLength: maxLength(2000),
+          },
+          passportSeries: {
+            passportSeries: helpers.regex(
+              'passportSeries',
+              // https://www.elma-bpm.ru/KB/article-6127.html
+              /^[0-9]{2}(\s{1})?[0-9]{2}$/,
+            ),
+          },
+          passportNumber: {
+            numeric,
+            length: length(6),
+          },
+          passportIssuedBy: {
+            alphaRu: (value) => {
+              const occurRegexesData = {
+                anyLetter: /\p{L}/gu,
+                letterRu: /[А-Яа-яёЁ]/g,
+              };
+              const occurNumbersData = Object.fromEntries(
+                Object.entries(occurRegexesData).map(([key, regex]) => {
+                  return [`${key}Num`, (value.match(regex) || []).length];
+                }),
+              );
+              const { anyLetterNum, letterRuNum } = occurNumbersData;
+              return anyLetterNum === letterRuNum;
+            },
+            maxLength: maxLength(2000),
+          },
         },
         true,
       ),
@@ -475,32 +446,32 @@
         const vuelidateObj = this.$v;
         if (vuelidateObj.$anyError) {
           this.submitStatus = 'ANY_ERROR';
-        } else if (!vuelidateObj.$anyDirty) {
-          this.submitStatus = 'NOT_ANY_DIRTY_ERROR';
         } else if (this.checkAnyFieldReuiredValidationFailed()) {
           this.submitStatus = 'ALL_REQUIRED_ERROR';
         } else {
           this.submitStatus = 'PENDING';
           await delay(1000);
-          vuelidateObj.$reset();
-          this.reset('formData');
           this.submitStatus = 'OK';
+          this.resetForm();
         }
+      },
+      resetForm() {
+        this.$v.$reset();
+        this.reset('formData');
       },
       checkAnyFieldReuiredValidationFailed() {
         const { formData } = this.$v;
-        return (
-          Object.keys(formData).filter((key) => {
-            const value = formData[key];
-            return (
-              value &&
-              typeof value === 'object' &&
-              value.value &&
-              'required' in value.value &&
-              value.value.required === false
-            );
-          }).length > 0
-        );
+        return Object.keys(formData).some((key) => {
+          const value = formData[key];
+
+          return (
+            value &&
+            typeof value === 'object' &&
+            value.value &&
+            'required' in value.value &&
+            value.value.required === false
+          );
+        });
       },
     },
   };
