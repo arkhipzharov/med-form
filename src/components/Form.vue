@@ -101,7 +101,7 @@
             'house',
           ]"
           :key="i"
-          class="form__field"
+          :class="{ 'form__field': key !== 'house' }"
           :vuelidateObj="$v"
           :inputData="formData[key]"
         >
