@@ -84,6 +84,7 @@
       padding: 15px;
       border: 1px solid $border-grey;
       border-radius: 5px;
+      transition: border-color 0.3s, color 0.3s;
 
       &[type='radio'],
       &[type='checkbox'] {
@@ -92,8 +93,25 @@
         margin-right: 7px;
       }
 
+      @at-root .validation-wrapper.error & {
+        color: $text-red;
+        transition: color 0.3s;
+      }
+
+      @at-root .validation-wrapper.error &:not([type='radio']),
+        .validation-wrapper.error &:not([type='checkbox']) {
+        border-color: $border-red;
+        transition: border-color 0.3s;
+      }
+
       &::placeholder {
         color: $text-grey;
+      }
+
+      &:hover,
+      &:focus {
+        border-color: $border-black;
+        transition: border-color 0.3s, color 0.3s;
       }
     }
   }

@@ -6,12 +6,14 @@
   >
     <slot></slot>
     <template v-if="validateObj.$dirty">
-      <p
-        v-if="firstFailedValidationName"
-        class="form-group__error-tip"
-      >
-        {{ errorMessages[firstFailedValidationName](validateObj) }}
-      </p>
+      <div class="validation-wrapper__error-tip-color-transition-startup-wrapper">
+        <p
+          v-if="firstFailedValidationName"
+          class="validation-wrapper__error-tip"
+        >
+          {{ errorMessages[firstFailedValidationName](validateObj) }}
+        </p>
+      </div>
     </template>
   </div>
 </template>
@@ -66,13 +68,19 @@
 
 <style lang="scss">
   .validation-wrapper {
-    &.error {
-      color: $text-red;
+    // need this because v-if removes transition, maybe because of manipulation
+    // of element existence in DOM
+    &__error-tip-color-transition-startup-wrapper {
+      transition: color 0.3s;
 
-      .form-input__input:not([type='radio']),
-      .form-select {
-        border: 1px solid $border-red;
+      @at-root .validation-wrapper.error & {
+        color: $text-red;
+        transition: color 0.3s;
       }
+    }
+
+    &__error-tip {
+      margin-top: 15px;
     }
   }
 </style>

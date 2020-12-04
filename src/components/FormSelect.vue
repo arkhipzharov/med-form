@@ -23,7 +23,6 @@
       </option>
     </select>
     <VIcon
-      v-if="!multiple"
       :href="'expand-more'"
       class="form-select__icon"
     />
@@ -82,14 +81,26 @@
     display: flex;
     align-items: center;
     width: 100%;
-    border: 1px solid $border-grey;
-    border-radius: 5px;
 
     &__select {
       display: block;
       flex: 1 1 0;
       padding: 15px;
-      background-color: inherit;
+      border: 1px solid $border-grey;
+      border-radius: 5px;
+      transition: border-color 0.3s, color 0.3s;
+
+      &:hover,
+      &:focus {
+        border-color: $border-black;
+        transition: border-color 0.3s, color 0.3s;
+      }
+
+      @at-root .validation-wrapper.error & {
+        color: $text-red;
+        border-color: $border-red;
+        transition: color 0.3s, border-color 0.3s;
+      }
     }
 
     &__icon {
@@ -100,6 +111,12 @@
       width: 25px;
       height: 25px;
       transform: translateY(-50%);
+
+      @at-root .form-select__select[multiple] + & {
+        @media (min-width: $break-lg) {
+          display: none;
+        }
+      }
     }
   }
 </style>

@@ -36,13 +36,26 @@
   .form-textarea {
     display: block;
     width: 100%;
-    height: 80px;
+    height: 100px;
     padding: 15px;
     border: 1px solid $border-grey;
     border-radius: 5px;
+    transition: border-color 0.3s, color 0.3s;
+
+    @at-root .validation-wrapper.error & {
+      color: $text-red;
+      border-color: $border-red;
+      transition: color 0.3s, border-color 0.3s;
+    }
 
     &::placeholder {
       color: $text-grey;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: $border-black;
+      transition: border-color 0.3s, color 0.3s;
     }
   }
 </style>

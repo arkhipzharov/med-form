@@ -125,22 +125,29 @@
             :type="'select'"
           />
         </ValidationWrapper>
+        <div class="form__field form__inline-childs">
+          <ValidationWrapper
+            v-for="(key, i) in ['passportSeries', 'passportNumber']"
+            :key="i"
+            :inputData="formData[key]"
+            :vuelidateObj="$v"
+          >
+            <FormGroup
+              :vuelidateObj="$v"
+              :inputData="formData[key]"
+            />
+          </ValidationWrapper>
+        </div>
         <ValidationWrapper
-          v-for="(keyAndType, i) in [
-            ['passportSeries', 'text'],
-            ['passportNumber', 'text'],
-            ['passportIssuedBy', 'textarea'],
-          ]"
-          :key="i"
           class="form__field"
-          :inputData="formData[keyAndType[0]]"
+          :inputData="formData.passportIssuedBy"
           :vuelidateObj="$v"
-          :type="keyAndType[1]"
+          :type="'textarea'"
         >
           <FormGroup
             :vuelidateObj="$v"
-            :inputData="formData[keyAndType[0]]"
-            :type="keyAndType[1]"
+            :inputData="formData.passportIssuedBy"
+            :type="'textarea'"
           />
         </ValidationWrapper>
         <DateFormField
@@ -200,15 +207,6 @@
     mixins: [
       reset(() => ({
         submitStatus: '',
-        submitStatusMessages: {
-          ANY_ERROR: 'Пожалуйста, заполните форму правильно',
-          ALL_REQUIRED_ERROR: `
-            Пожалуйста, заполните все обязательные поля формы, они отмечены
-            красной звёздочкой
-          `,
-          PENDING: 'Отправляем...',
-          OK: 'Новый пользователь успешно создан',
-        },
         formData: shapeAndPossiblyNormalizeInputsDataObj([], {
           ...flattenCombinedInputsDataForEachDataKey([
             {
@@ -338,6 +336,19 @@
         }),
       })),
     ],
+    data() {
+      return {
+        submitStatusMessages: {
+          ANY_ERROR: 'Пожалуйста, заполните форму правильно',
+          ALL_REQUIRED_ERROR: `
+            Пожалуйста, заполните все обязательные поля формы, они отмечены
+            красной звёздочкой
+          `,
+          PENDING: 'Отправляем...',
+          OK: 'Новый пользователь успешно создан',
+        },
+      };
+    },
     mounted() {
       this.$evBus.$on('changed-value-or-values', ({ dataKey, newValue }) => {
         this.formData[dataKey] = {
@@ -485,6 +496,18 @@
 
     &__field {
       margin-bottom: 15px;
+    }
+
+    &__inline-childs {
+      display: flex;
+
+      > * {
+        flex: 1 1 0;
+      }
+
+      > * + * {
+        margin-left: 20px;
+      }
     }
   }
 </style>

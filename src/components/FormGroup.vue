@@ -29,7 +29,7 @@
       >
         *
       </span>
-      {{ tip ? `(${tip.trim()})` : '' }}
+      <span class="form-group__input-tip">{{ tip ? `(${tip.trim()})` : '' }}</span>
     </label>
     <FormInput
       v-if="type === 'text' || type === 'number'"
@@ -140,9 +140,15 @@
     &__label {
       display: inline-block;
       margin-bottom: 15px;
+      transition: color 0.3s;
 
       &.inline-child {
         margin-bottom: 0;
+      }
+
+      @at-root .validation-wrapper.error & {
+        color: $text-red;
+        transition: color 1ы;
       }
     }
 
@@ -150,8 +156,12 @@
       color: $text-red;
     }
 
-    &__error-tip {
-      margin-top: 15px;
+    &__input-tip {
+      display: none;
+
+      @media (min-width: $break-lg) {
+        display: inline;
+      }
     }
   }
 </style>
