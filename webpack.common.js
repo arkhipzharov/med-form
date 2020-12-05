@@ -1,13 +1,18 @@
+require('dotenv').config();
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
+// Try the environment variable, otherwise use root
+const GH_PAGES_PUBLIC_PATH = process.env.GH_PAGES_PUBLIC_PATH || '/';
+
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: GH_PAGES_PUBLIC_PATH,
     // refresh js by adding hash after uploading new version of website
     filename: 'main.[hash].js',
   },
