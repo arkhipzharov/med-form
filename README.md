@@ -23,7 +23,7 @@ Live preview is available [here](https://arkhipzharov.github.io/med-form/)
 3. `git add .`
 4. `git commit`
 5. `git push origin gh-pages`
-6. wait a bit and check updates [here](https://shiftenko.github.io/med-form/)
+6. wait a bit and check updates [here](https://arkhipzharov.github.io/med-form/)
 
 ## Lint
 
