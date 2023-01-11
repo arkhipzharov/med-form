@@ -7,7 +7,7 @@ Live preview is available [here](https://shiftenko.github.io/med-form/)
 
 1. `git clone https://github.com/shiftenko/med-form`
 2. `npm i`
-2. `git worktree add dist gh-pages`
+3. `git worktree add dist gh-pages`
 
 ## 👷‍♂ Development
 
@@ -22,8 +22,8 @@ Live preview is available [here](https://shiftenko.github.io/med-form/)
 2. `cd dist`
 3. `git add .`
 4. `git commit`
-4. `git push origin gh-pages`
-5. wait a bit and check updates [here](https://shiftenko.github.io/med-form/)
+5. `git push origin gh-pages`
+6. wait a bit and check updates [here](https://shiftenko.github.io/med-form/)
 
 ## Lint
 
