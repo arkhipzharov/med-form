@@ -1,11 +1,11 @@
 # Med Form
 
 Medical field create client form with dynamic and submit validation.
-Live preview is available [here](https://shiftenko.github.io/med-form/)
+Live preview is available [here](https://arkhipzharov.github.io/med-form/)
 
 ## 📥 Setup
 
-1. `git clone https://github.com/shiftenko/med-form`
+1. `git clone https://github.com/arkhipzharov/med-form`
 2. `npm i`
 3. `git worktree add dist gh-pages`
 
