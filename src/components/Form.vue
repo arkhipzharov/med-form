@@ -256,7 +256,7 @@
           attendingPhysician: {
             label: 'Лечащий врач',
           },
-          attendingPhysicians: ['Иванов', 'Захаров', 'Чернышева'],
+          attendingPhysicians: ['Иванов', 'Смирнов', 'Попов'],
           clientGroupsData: {
             value: [],
             label: 'Группа клиентов',
