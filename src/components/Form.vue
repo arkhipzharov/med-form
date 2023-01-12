@@ -224,11 +224,11 @@
           },
           birthDatePartsMonth: {
             label: 'Месяц',
-            placeholder: '12',
+            placeholder: '05',
           },
           birthDatePartsYear: {
             label: 'Год',
-            placeholder: '2000',
+            placeholder: '1995',
           },
           name: {
             label: 'Имя',
@@ -281,7 +281,7 @@
           },
           postalCode: {
             label: 'Индекс',
-            placeholder: '344022',
+            placeholder: '142780',
           },
           country: {
             label: 'Страна',
@@ -331,7 +331,7 @@
           passportIssuedBy: {
             label: 'Кем выдан',
             placeholder:
-              'Отделом УФМС России по Ростовской обл. в Октябрьском р-не города Ростова-на-Дону',
+              'Отделом внутренних дел Одинцовского района города Москвы',
           },
         }),
       })),
